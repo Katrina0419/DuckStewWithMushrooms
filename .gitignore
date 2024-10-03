@@ -4,3 +4,11 @@ Assembly-CSharp-Editor.csproj
 Assembly-CSharp.csproj
 
 DuckStewWithMushrooms.sln
+
+Library/
+
+Logs/
+
+UserSettings/
+
+Temp/
