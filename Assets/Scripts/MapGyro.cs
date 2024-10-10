@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Spaceship : MonoBehaviour
+public class MapGyro : MonoBehaviour
 {
     Rigidbody2D rb;
     float dirX;
-    float moveSpeed = 20f;
+    float moveSpeed = 10f;
 
     private void Start()
     {
@@ -16,12 +16,11 @@ public class Spaceship : MonoBehaviour
     private void Update()
     {
         dirX = Input.acceleration.x * moveSpeed;
-        //transform.position = new Vector2(Mathf.Clamp(transform.position.x, -7.5f, 7.5f), transform.position.y);
         //transform.eulerAngles = new Vector3(0, 0, Mathf.Clamp(transform.rotation.z, -90f, 90f));
     }
 
     private void FixedUpdate()
     {
-        rb.MoveRotation(dirX * 5f);
+        rb.MoveRotation(-dirX * 3f);
     }
 }
