@@ -5,8 +5,10 @@ using UnityEngine;
 public class PlayerGyro : MonoBehaviour
 {
     Rigidbody2D rb;
-    float dirX;
-    float moveSpeed = 50f;
+    float dirX, dirY;
+    float moveSpeed = 100f;
+
+    public Transform body, head;
 
     private void Start()
     {
@@ -15,12 +17,14 @@ public class PlayerGyro : MonoBehaviour
 
     private void Update()
     {
-        dirX = Input.acceleration.x * moveSpeed;
-        //transform.position = new Vector2(Mathf.Clamp(transform.position.x, -7.5f, 7.5f), transform.position.y);
+        dirX = Input.acceleration.x * moveSpeed * 0.5f;
+        dirY = Input.acceleration.y * moveSpeed;
     }
 
+    [System.Obsolete]
     private void FixedUpdate()
     {
-        rb.velocity = new Vector2(dirX, 0f);
+        rb.velocity = new Vector2(dirX, dirY);
+        head.rotation = Quaternion.EulerAngles(0, 0, Input.acceleration.y);
     }
 }

@@ -22,6 +22,6 @@ public class MapGyro : MonoBehaviour
 
     private void FixedUpdate()
     {
-        rb.MoveRotation(-dirX * 3f);
+        rb.MoveRotation(-dirX);
     }
 }
