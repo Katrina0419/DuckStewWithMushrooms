@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using UnityEngine;
 
 public class PlayerGyro : MonoBehaviour
@@ -15,6 +16,7 @@ public class PlayerGyro : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
     }
 
+    [System.Obsolete]
     private void Update()
     {
         dirX = Input.acceleration.x * moveSpeed * 0.5f;
@@ -25,6 +27,8 @@ public class PlayerGyro : MonoBehaviour
     private void FixedUpdate()
     {
         rb.velocity = new Vector2(dirX, dirY);
-        head.rotation = Quaternion.EulerAngles(0, 0, Input.acceleration.y);
+
+        head.rotation = Quaternion.EulerRotation(0, 0, Mathf.Clamp(Input.acceleration.y, -40f, 10f));
+        body.rotation = Quaternion.EulerRotation(0, 0, Input.acceleration.y * 0.7f);
     }
 }
