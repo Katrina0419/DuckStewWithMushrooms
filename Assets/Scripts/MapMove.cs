@@ -7,17 +7,17 @@ public class MapMove : MonoBehaviour
     public Transform playerTF;
     public Transform mapTF;
 
-    Transform mapStartTF;
+    Vector3 mapStartTF;
 
-    private void Awake()
+    private void Start()
     {
-        mapStartTF.position = mapTF.position;
+        mapStartTF = mapTF.position;
     }
 
     private void FixedUpdate()
     {
         transform.position = playerTF.position;
-        mapTF.position = new Vector3(mapStartTF.position.x - transform.position.x, mapStartTF.position.y + transform.position.y, 0);
+        mapTF.position = new Vector3(mapStartTF.x - transform.position.x, mapStartTF.y + transform.position.y, 0);
     }
 
 }
