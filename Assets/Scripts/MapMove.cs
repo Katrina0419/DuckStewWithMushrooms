@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//µØÍ¼¸úËæĞı×ª
 public class MapMove : MonoBehaviour
 {
     public Transform playerTF;

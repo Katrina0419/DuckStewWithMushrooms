@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//µØÍ¼¹¦ÄÜ
 public class MapGyro : MonoBehaviour
 {
     Rigidbody2D rb;

@@ -8,13 +8,13 @@ TagManager:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Player
   - Water
   - UI
   - Prop
-  - 
-  - 
-  - 
+  - Map
+  - Organ
+  - Reset
   - 
   - 
   - 
@@ -40,4 +40,13 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Map
+    uniqueID: 2325591315
+    locked: 0
+  - name: Prop
+    uniqueID: 2818618877
+    locked: 0
+  - name: Player
+    uniqueID: 1716626073
     locked: 0
