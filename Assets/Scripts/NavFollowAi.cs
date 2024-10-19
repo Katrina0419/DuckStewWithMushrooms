@@ -27,5 +27,10 @@ public class NavFollowAi : MonoBehaviour
         transform.rotation = Quaternion.EulerRotation(Vector3.zero);
 
         transform.DOScaleX(player.transform.localScale.x, 1f);
+
+        if(Mathf.Abs(transform.position.x - player.transform.position.x) > 20)
+        {
+            transform.DOMove(player.transform.position, 0.3f);
+        }
     }
 }

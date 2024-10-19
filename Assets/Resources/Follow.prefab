@@ -54,7 +54,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -130,10 +130,10 @@ NavMeshAgent:
   m_GameObject: {fileID: 6658183835593925016}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 2.5
-  m_Speed: 200
-  m_Acceleration: 200
-  avoidancePriority: 50
+  m_Radius: 1
+  m_Speed: 100
+  m_Acceleration: 100
+  avoidancePriority: 1
   m_AngularSpeed: 50
   m_StoppingDistance: 0
   m_AutoTraverseOffMeshLink: 1
@@ -142,7 +142,7 @@ NavMeshAgent:
   m_Height: 1
   m_BaseOffset: 0.49999997
   m_WalkableMask: 1
-  m_ObstacleAvoidanceType: 4
+  m_ObstacleAvoidanceType: 3
 --- !u!114 &3859539116840476138
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -233,7 +233,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -299,7 +299,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 2.1646147, y: -1.6665611}
+  m_Offset: {x: 3.4066427, y: -2.6080995}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -309,5 +309,5 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 12.685089, y: 11.61236}
+  m_Size: {x: 6.995785, y: 5.963126}
   m_EdgeRadius: 0
