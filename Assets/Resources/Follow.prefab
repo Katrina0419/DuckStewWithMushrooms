@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3659038262207183662}
   - component: {fileID: 1183242838860696001}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: eye
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -97,7 +97,7 @@ GameObject:
   - component: {fileID: 8142047903467653500}
   - component: {fileID: 5951077312554305410}
   - component: {fileID: 3859539116840476138}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Follow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -128,7 +128,7 @@ NavMeshAgent:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6658183835593925016}
-  m_Enabled: 1
+  m_Enabled: 0
   m_AgentTypeID: 0
   m_Radius: 1
   m_Speed: 100
@@ -189,7 +189,7 @@ GameObject:
   - component: {fileID: 8809590151388952844}
   - component: {fileID: 6441673944014197666}
   - component: {fileID: 6107599143709408784}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: ball
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -5,6 +5,7 @@ using UnityEngine;
 using DG.Tweening;
 using System;
 using Unity.VisualScripting;
+using Cinemachine;
 
 //玩家控制
 public class PlayerGyro : MonoBehaviour
@@ -13,15 +14,18 @@ public class PlayerGyro : MonoBehaviour
     float dirX, dirY;
     public float moveSpeed;
 
-    public GameObject body, head;
+    public GameObject body, head, fishes;
 
     public Vector2 playerTF;
 
     //跟随煤球数
     float followCount;
 
-    //或许标题名
+    //获取标题名
     public GameObject duckRoom;
+
+    //虚拟相机
+    public CinemachineVirtualCamera CVCame;
 
     private void Start()
     {
@@ -41,10 +45,15 @@ public class PlayerGyro : MonoBehaviour
         {
         }
 
-        if(transform.position.x <= duckRoom.transform.position.x) //开头标题隐藏
+        if(transform.position.x <= duckRoom.transform.position.x) 
         {
+            //开头标题隐藏
             float b = LinearInterpolation(transform.position.x, playerTF.x, duckRoom.transform.position.x, 1, 0);
             duckRoom.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, b);
+
+            //镜头拉升
+            float d = LinearInterpolation(transform.position.x, playerTF.x, duckRoom.transform.position.x, 130, 140);
+            CVCame.m_Lens.FieldOfView = d;
         }
     }
 
@@ -78,11 +87,11 @@ public class PlayerGyro : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.name == "Circle") //道具球
+        if (collision.gameObject.name == "Fish") //加随从道具
         {
             collision.gameObject.SetActive(false);
 
-            var obj = Instantiate(Resources.Load("Follow"), transform.position, Quaternion.Euler(0, 0, 0));
+            var obj = Instantiate(Resources.Load("Follow"), fishes.transform.position, Quaternion.Euler(0, 0, 0), fishes.transform);
             obj.GetComponent<NavFollowAi>().player = this.gameObject;
 
             followCount++;
