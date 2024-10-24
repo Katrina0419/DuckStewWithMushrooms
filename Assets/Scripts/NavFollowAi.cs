@@ -20,7 +20,6 @@ public class NavFollowAi : MonoBehaviour
 
         int num = ballimage.Count; //随机出现一个煤球，并从list删除
         ball.GetComponent<SpriteRenderer>().sprite = ballimage[Random.Range(0, num)];
-        ballimage.Remove(ballimage[num]);
     }
 
     [System.Obsolete]

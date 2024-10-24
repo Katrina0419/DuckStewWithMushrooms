@@ -60,29 +60,35 @@ public class PlayerGyro : MonoBehaviour
     [System.Obsolete]
     private void FixedUpdate()
     {
-        if (rb.velocity.y < -20) //下
+        if (dirY < -20) //下
         {
-            rb.velocity = new Vector2(dirX, dirY * 0.5f);
+            rb.velocityY = dirY;
         }
         else //上
         {
-            rb.velocity = new Vector2(dirX * 1.5f, dirY * 1.5f);
+            rb.velocityY = dirY * 1.2f;
         }
 
-        if (rb.velocity.x < -20) //左
+        if (dirX < -20) //左
         {
-            transform.DOScaleX(-1f, 1f);
+            rb.velocityX = dirX * 1.7f;
+            transform.DOScaleX(-1f, 0f);
 
-            body.transform.rotation = Quaternion.EulerRotation(0, 0, -Input.acceleration.y * 0.7f);
-            head.transform.rotation = Quaternion.EulerRotation(0, 0, -Mathf.Clamp(Input.acceleration.y, -40f, 10f));
+            transform.rotation = Quaternion.EulerRotation(0, 0, -Input.acceleration.y * 0.7f);
+            //body.transform.rotation = Quaternion.EulerRotation(0, 0, -Input.acceleration.y * 0.7f);
+            //head.transform.rotation = Quaternion.EulerRotation(0, 0, -Mathf.Clamp(Input.acceleration.y, -40f, 10f));
         }
-        else //左
+        else //右
         {
-            transform.DOScaleX(1f, 1f);
+            rb.velocityX = dirX * 1.7f;
+            transform.DOScaleX(1f, 0f);
 
-            body.transform.rotation = Quaternion.EulerRotation(0, 0, Input.acceleration.y * 0.7f);
-            head.transform.rotation = Quaternion.EulerRotation(0, 0, Mathf.Clamp(Input.acceleration.y, -40f, 10f));
+            transform.rotation = Quaternion.EulerRotation(0, 0, Input.acceleration.y * 0.7f);
+            //body.transform.rotation = Quaternion.EulerRotation(0, 0, Input.acceleration.y * 0.7f);
+            //head.transform.rotation = Quaternion.EulerRotation(0, 0, Mathf.Clamp(Input.acceleration.y, -40f, 10f));
         }
+
+        
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -92,7 +98,8 @@ public class PlayerGyro : MonoBehaviour
             collision.gameObject.SetActive(false);
 
             var obj = Instantiate(Resources.Load("Follow"), fishes.transform.position, Quaternion.Euler(0, 0, 0), fishes.transform);
-            obj.GetComponent<NavFollowAi>().player = this.gameObject;
+            //obj.GetComponent<NavFollowAi>().player = this.gameObject;
+            obj.GetComponent<AudioSource>().Play();
 
             followCount++;
         }
@@ -111,6 +118,13 @@ public class PlayerGyro : MonoBehaviour
         }     
     }
 
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.name == "CameraColl") //出地图重置
+        {
+            transform.position = playerTF;
+        }
+    }
 
     /// <summary>
     /// 线性插值（计算a区间内任意b值）

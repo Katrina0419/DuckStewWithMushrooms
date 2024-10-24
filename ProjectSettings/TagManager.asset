@@ -41,7 +41,7 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: Map
+  - name: Map-D
     uniqueID: 2325591315
     locked: 0
   - name: Prop
@@ -50,6 +50,6 @@ TagManager:
   - name: Player
     uniqueID: 1716626073
     locked: 0
-  - name: Map2
+  - name: Map-U
     uniqueID: 2511129727
     locked: 0
