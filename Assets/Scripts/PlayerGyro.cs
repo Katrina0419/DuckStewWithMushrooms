@@ -8,6 +8,8 @@ using Unity.VisualScripting;
 using Cinemachine;
 using Random = UnityEngine.Random;
 using static UnityEditor.Progress;
+using UnityEngine.UI;
+using Microsoft.Unity.VisualStudio.Editor;
 
 //玩家控制
 public class PlayerGyro : MonoBehaviour
@@ -16,12 +18,13 @@ public class PlayerGyro : MonoBehaviour
     float dirX, dirY, dirZ;
     public float moveSpeed;
 
-    public GameObject body, head, fishes;
+    public GameObject body, head;
 
     public Vector2 playerTF;
 
     //跟随煤球数
     public GameObject follow;
+    public Transform fishes;
     public float followDistance; // 道具之间的跟随距离
     public List<GameObject> items = new List<GameObject>();
 
@@ -33,6 +36,8 @@ public class PlayerGyro : MonoBehaviour
 
     //是否分裂
     public bool isSnake = false;
+    public UnityEngine.UI.Image btnSP;
+    public List<Sprite> sp = new List<Sprite>();
 
     private void Start()
     {
@@ -57,12 +62,13 @@ public class PlayerGyro : MonoBehaviour
 
 
         dirX = Input.acceleration.x * moveSpeed;
-        //dirY = Input.acceleration.y * moveSpeed;
+        dirY = Input.acceleration.y * moveSpeed;
         dirZ = (-Input.acceleration.z - 0.5f) * moveSpeed;
 
         if (dirZ < 100) //上
         {
-            rb.velocityY = dirZ - 30f;
+            //rb.velocityY = dirZ + 80f;
+            rb.velocityY = dirY + 50f;
         }
         else //下
         {
@@ -71,7 +77,7 @@ public class PlayerGyro : MonoBehaviour
 
         if (dirX < -20) //左
         {
-            rb.velocityX = dirX * 1.7f;
+            rb.velocityX = dirX * 1.5f;
             transform.DOScaleX(-1f, 0f);
 
             transform.rotation = Quaternion.EulerRotation(0, 0, -Input.acceleration.y * 0.7f);
@@ -80,7 +86,7 @@ public class PlayerGyro : MonoBehaviour
         }
         else //右
         {
-            rb.velocityX = dirX * 1.7f;
+            rb.velocityX = dirX * 1.5f;
             transform.DOScaleX(1f, 0f);
 
             transform.rotation = Quaternion.EulerRotation(0, 0, Input.acceleration.y * 0.7f);
@@ -98,9 +104,9 @@ public class PlayerGyro : MonoBehaviour
             collision.gameObject.SetActive(false);
 
             float angle = Random.Range(0f, 360f);
-            float distance = Random.Range(10f, 15f);//周围随机
-            Vector3 randomPosition = new Vector3(transform.position.x + Mathf.Cos(angle) * distance, transform.position.y + Mathf.Sin(angle) * distance, 0);
-            GameObject item = Instantiate(follow, randomPosition, Quaternion.Euler(0, 0, 0), fishes.transform);
+            float distance = Random.Range(5f, 10f);//周围随机
+            Vector3 randomPosition = new Vector3(fishes.position.x + Mathf.Cos(angle) * distance, fishes.position.y + Mathf.Sin(angle) * distance, 0);
+            GameObject item = Instantiate(follow, randomPosition, Quaternion.Euler(0, 0, 0), fishes);
 
             items.Add(item);
         }
@@ -108,15 +114,8 @@ public class PlayerGyro : MonoBehaviour
         if (collision.gameObject.name == "record") //reset重置点
         {
             playerTF = collision.gameObject.transform.position;
+            btnSP.enabled = true;
         }
-    }
-
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.name == "JiGuan_0")//重力机关
-        {
-
-        }     
     }
 
     private void OnTriggerExit2D(Collider2D collision)
@@ -131,20 +130,24 @@ public class PlayerGyro : MonoBehaviour
     {
         if (isSnake) //分裂
         {
+            btnSP.sprite = sp[1];
+
             for (int i = 0; i < items.Count; i++)
             {
                 items[i].GetComponent<NavFollowAi>().agent.enabled = false;
 
                 float angle = Random.Range(0f, 360f);
                 float distance = Random.Range(5f, 10f);
-                Vector3 randomPosition = new Vector3(transform.position.x + Mathf.Cos(angle) * distance, transform.position.y + Mathf.Sin(angle) * distance, 0);
+                Vector3 randomPosition = new Vector3(fishes.localPosition.x + Mathf.Cos(angle) * distance, fishes.localPosition.y + Mathf.Sin(angle) * distance, 0);
 
-                items[i].transform.DOMove(randomPosition, 1f);
+                items[i].transform.DOLocalMove(randomPosition, 1f);
                 items[i].transform.localRotation = Quaternion.EulerAngles(0, 0, 0);
             }
         }
         else //列队
         {
+            btnSP.sprite = sp[0];
+
             for (int i = 0; i < items.Count; i++)
             {
                 Vector3 offset = new Vector3(-followDistance * (i + 1), 0, 0);
