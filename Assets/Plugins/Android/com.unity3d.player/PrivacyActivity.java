@@ -7,74 +7,74 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.webkit.WebView;
- 
+
 public class PrivacyActivity extends Activity implements DialogInterface.OnClickListener {
 
-   // ÒşË½Ğ­ÒéÄÚÈİ
-   final String privacyContext = 
-             "»¶Ó­Ê¹ÓÃ±¾ÓÎÏ·£¬ÔÚÊ¹ÓÃ±¾ÓÎÏ·Ç°£¬ÇëÄú³ä·ÖÔÄ¶Á²¢Àí½â" +
-             "¡¶ÓÃ»§Ğ­Òé¡·</a>ºÍ<a href=\">¡¶ÒşË½Õş²ß¡·</a>¸÷Ìõ;\n" +
-     "1.±£»¤ÓÃ»§ÒşË½ÊÇ±¾ÓÎÏ·µÄÒ»Ïî»ù±¾Õş²ß£¬±¾ÓÎÏ·²»»áĞ¹Â¶ÄúµÄ¸öÈËĞÅÏ¢£»\n" +
-     "2.ÎÒÃÇ»á¸ù¾İÄúÊ¹ÓÃµÄ¾ßÌå¹¦ÄÜĞèÒª£¬ÊÕ¼¯±ØÒªµÄÓÃ»§ĞÅÏ¢£¨ÈçÉêÇëÉè±¸ĞÅÏ¢£¬´æ´¢µÈÏà¹ØÈ¨ÏŞ£©£»\n" +
-     "3.ÔÚÄúÍ¬ÒâAppÒşË½Õş²ßºó£¬ÎÒÃÇ½«½øĞĞ¼¯³ÉSDKµÄ³õÊ¼»¯¹¤×÷£¬»áÊÕ¼¯ÄúµÄandroid_id¡¢¿ØÖÆÆ÷£¬ÒÔ±£ÕÏAppÕı³£Êı¾İÍ³¼ÆºÍ°²È«·ç¿Ø£»\n" +
-     "4.ÎªÁË·½±ãÄúµÄ²éÔÄ£¬Äú¿ÉÒÔÍ¨¹ı¡°ÉèÖÃ¡±ÖØĞÂ²é¿´¸ÃĞ­Òé£»\n" +
-     "5.Äú¿ÉÒÔÔÄ¶ÁÍêÕû°æµÄÒşË½±£»¤Õş²ßÁË½âÎÒÃÇÉêÇëÊ¹ÓÃÏà¹ØÈ¨ÏŞµÄÇé¿ö£¬ÒÔ¼°¶ÔÄú¸öÈËÒşË½µÄ±£»¤´ëÊ©¡£";
-     
-    
+    // éšç§åè®®å†…å®¹
+    final String privacyContext =
+            "æ¬¢è¿ä½¿ç”¨æœ¬æ¸¸æˆï¼Œåœ¨ä½¿ç”¨æœ¬æ¸¸æˆå‰ï¼Œè¯·æ‚¨å……åˆ†é˜…è¯»å¹¶ç†è§£ <a href=\"https://blog.csdn.net/czhenya\">" +
+                    "ã€Šç”¨æˆ·åè®®ã€‹</a>å’Œ<a href=\"https://blog.csdn.net/czhenya\">ã€Šéšç§æ”¿ç­–ã€‹</a>å„æ¡;\n" +
+                    "1.ä¿æŠ¤ç”¨æˆ·éšç§æ˜¯æœ¬æ¸¸æˆçš„ä¸€é¡¹åŸºæœ¬æ”¿ç­–ï¼Œæœ¬æ¸¸æˆä¸ä¼šæ³„éœ²æ‚¨çš„ä¸ªäººä¿¡æ¯ï¼›\n" +
+                    "2.æˆ‘ä»¬ä¼šæ ¹æ®æ‚¨ä½¿ç”¨çš„å…·ä½“åŠŸèƒ½éœ€è¦ï¼Œæ”¶é›†å¿…è¦çš„ç”¨æˆ·ä¿¡æ¯ï¼ˆå¦‚ç”³è¯·è®¾å¤‡ä¿¡æ¯ï¼Œå­˜å‚¨ç­‰ç›¸å…³æƒé™ï¼‰ï¼›\n" +
+                    "3.åœ¨æ‚¨åŒæ„Appéšç§æ”¿ç­–åï¼Œæˆ‘ä»¬å°†è¿›è¡Œé›†æˆSDKçš„åˆå§‹åŒ–å·¥ä½œï¼Œä¼šæ”¶é›†æ‚¨çš„android_idã€Macåœ°å€ã€IMEIå’Œåº”ç”¨å®‰è£…åˆ—è¡¨ï¼Œä»¥ä¿éšœAppæ­£å¸¸æ•°æ®ç»Ÿè®¡å’Œå®‰å…¨é£æ§ï¼›\n" +
+                    "4.ä¸ºäº†æ–¹ä¾¿æ‚¨çš„æŸ¥é˜…ï¼Œæ‚¨å¯ä»¥é€šè¿‡â€œè®¾ç½®â€é‡æ–°æŸ¥çœ‹è¯¥åè®®ï¼›\n" +
+                    "5.æ‚¨å¯ä»¥é˜…è¯»å®Œæ•´ç‰ˆçš„éšç§ä¿æŠ¤æ”¿ç­–äº†è§£æˆ‘ä»¬ç”³è¯·ä½¿ç”¨ç›¸å…³æƒé™çš„æƒ…å†µï¼Œä»¥åŠå¯¹æ‚¨ä¸ªäººéšç§çš„ä¿æŠ¤æªæ–½ã€‚";
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-  
-        // Èç¹ûÒÑ¾­Í¬Òâ¹ıÒşË½Ğ­ÒéÔòÖ±½Ó½øÈëUnity Activity
+
+        // å¦‚æœå·²ç»åŒæ„è¿‡éšç§åè®®åˆ™ç›´æ¥è¿›å…¥Unity Activity
         if (GetPrivacyAccept()){
             EnterUnityActivity();
             return;
         }
-        // µ¯³öÒşË½Ğ­Òé¶Ô»°¿ò
+        // å¼¹å‡ºéšç§åè®®å¯¹è¯æ¡†
         ShowPrivacyDialog();
     }
- 
-    // ÏÔÊ¾ÒşË½Ğ­Òé¶Ô»°¿ò
+
+    // æ˜¾ç¤ºéšç§åè®®å¯¹è¯æ¡†
     private void ShowPrivacyDialog(){
         WebView webView = new WebView(this);
-        webView.loadData(privacyContext, "text/html", "utf-8");         
+        webView.loadData(privacyContext, "text/html", "utf-8");
         AlertDialog.Builder privacyDialog = new AlertDialog.Builder(this);
         privacyDialog.setCancelable(false);
         privacyDialog.setView(webView);
-        privacyDialog.setTitle("ÌáÊ¾");
-        privacyDialog.setNegativeButton("¾Ü¾ø",this);
-        privacyDialog.setPositiveButton("Í¬Òâ",this);
+        privacyDialog.setTitle("æç¤º");
+        privacyDialog.setNegativeButton("æ‹’ç»",this);
+        privacyDialog.setPositiveButton("åŒæ„",this);
         privacyDialog.create().show();
     }
-    
+
     @Override
     public void onClick(DialogInterface dialogInterface, int i) {
         switch (i){
-            case AlertDialog.BUTTON_POSITIVE://µã»÷Í¬Òâ°´Å¥
+            case AlertDialog.BUTTON_POSITIVE://ç‚¹å‡»åŒæ„æŒ‰é’®
                 SetPrivacyAccept(true);
-                EnterUnityActivity(); //Æô¶¯Unity Activity
+                EnterUnityActivity(); //å¯åŠ¨Unity Activity
                 break;
-            case AlertDialog.BUTTON_NEGATIVE://µã»÷¾Ü¾ø°´Å¥,Ö±½ÓÍË³öApp
+            case AlertDialog.BUTTON_NEGATIVE://ç‚¹å‡»æ‹’ç»æŒ‰é’®,ç›´æ¥é€€å‡ºApp
                 finish();
                 break;
         }
     }
-    
-    // Æô¶¯Unity Activity
+
+    // å¯åŠ¨Unity Activity
     private void EnterUnityActivity(){
         Intent unityAct = new Intent();
         unityAct.setClassName(this, "com.unity3d.player.UnityPlayerActivity");
         this.startActivity(unityAct);
     }
-    
-    // ±¾µØ´æ´¢±£´æÍ¬ÒâÒşË½Ğ­Òé×´Ì¬
+
+    // æœ¬åœ°å­˜å‚¨ä¿å­˜åŒæ„éšç§åè®®çŠ¶æ€
     private void SetPrivacyAccept(boolean accepted){
         SharedPreferences.Editor prefs = this.getSharedPreferences("PlayerPrefs", MODE_PRIVATE).edit();
         prefs.putBoolean("PrivacyAcceptedKey", accepted);
         prefs.apply();
     }
-    
-    // »ñÈ¡ÊÇ·ñÒÑ¾­Í¬Òâ¹ı
+
+    // è·å–æ˜¯å¦å·²ç»åŒæ„è¿‡
     private boolean GetPrivacyAccept(){
         SharedPreferences prefs = this.getSharedPreferences("PlayerPrefs", MODE_PRIVATE);
         return prefs.getBoolean("PrivacyAcceptedKey", false);
