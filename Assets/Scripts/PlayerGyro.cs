@@ -49,22 +49,25 @@ public class PlayerGyro : MonoBehaviour
     //重新开始
     public void GameStart()
     {
+        foreach (Transform p in fishes)
+        {
+            Destroy(p.gameObject);
+        }
+        items.Clear();
+
         this.transform.position = new Vector3(-510, 386, 0);
         foreach (Transform p in props)
         {
             p.gameObject.SetActive(true);
         }
 
-        items.Clear();
-
-        foreach (Transform p in fishes)
-        {
-            Destroy(p);
-        }
-
+        goodEnd.GetComponent<BoxCollider2D>().enabled = true;
         goodEnd.GetComponent<BoxCollider2D>().isTrigger = false;
+
         goodImag.SetActive(false);
         badImag.SetActive(false);
+
+        goodEnd.gameObject.transform.GetChild(0).GetComponent<SpriteRenderer>().color = Color.white;
     }
 
     [System.Obsolete]
@@ -100,14 +103,16 @@ public class PlayerGyro : MonoBehaviour
             rb.velocityX = dirX * 1.5f;
 
             transform.DOScaleX(-1f, 0f);
-            transform.rotation = Quaternion.Euler(0, 0, Input.acceleration.z * 70 + 15);
+            transform.rotation = Quaternion.EulerRotation(0, 0, -Input.acceleration.y);
+            //transform.rotation = Quaternion.Euler(0, 0, Input.acceleration.z * 70 + 15);
         }
         else //右
         {
             rb.velocityX = dirX * 1.5f;
 
             transform.DOScaleX(1f, 0f);
-            transform.rotation = Quaternion.Euler(0, 0, -Input.acceleration.z * 70 - 15);
+            transform.rotation = Quaternion.EulerRotation(0, 0, Input.acceleration.y);
+            //transform.rotation = Quaternion.Euler(0, 0, -Input.acceleration.z * 70 - 15);
         }       
     }
 
@@ -144,15 +149,16 @@ public class PlayerGyro : MonoBehaviour
 
         if (collision.gameObject.name == "good")
         {
+            goodEnd.GetComponent<BoxCollider2D>().enabled = false;//碰撞体消失
             collision.gameObject.transform.GetChild(0).GetComponent<SpriteRenderer>().DOColor(new Color(1, 1, 1, 0), 1f);
-            Invoke("GoodEnd", 1.5f);
-            Invoke("GameStart", 3f);
+            Invoke("GoodEnd", 3f);
+            //Invoke("GameStart", 3f);
 
         }
         if (collision.gameObject.name == "bad")
         {
-            Invoke("BadEnd", 1.5f);
-            Invoke("GameStart", 3f);
+            Invoke("BadEnd", 3f);
+            //Invoke("GameStart", 3f);
         }
     }
 
