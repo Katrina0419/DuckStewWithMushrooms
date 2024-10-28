@@ -11,15 +11,15 @@ public class NavFollowAi : MonoBehaviour
     public SpriteRenderer ball;
     public NavMeshAgent agent;
 
-    public List<Sprite> ballimage;
+    public List<Material> ballimage;
 
 
     private void Start()
     {
         agent = GetComponent<NavMeshAgent>();
 
-        int num = ballimage.Count; //随机出现一个煤球，并从list删除
-        ball.GetComponent<SpriteRenderer>().sprite = ballimage[Random.Range(0, num)];
+        //int num = ballimage.Count;
+        //ball.GetComponent<SpriteRenderer>().material = ballimage[Random.Range(0, num)];
     }
 
     [System.Obsolete]

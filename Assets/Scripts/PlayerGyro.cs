@@ -1,15 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.Mathematics;
 using UnityEngine;
 using DG.Tweening;
-using System;
-using Unity.VisualScripting;
+
 using Cinemachine;
 using Random = UnityEngine.Random;
-using static UnityEditor.Progress;
-using UnityEngine.UI;
-using Microsoft.Unity.VisualStudio.Editor;
+
+using Image = UnityEngine.UI.Image;
+using Unity.VisualScripting;
 
 //玩家控制
 public class PlayerGyro : MonoBehaviour
@@ -27,6 +25,7 @@ public class PlayerGyro : MonoBehaviour
     public Transform fishes;
     public float followDistance; // 道具之间的跟随距离
     public List<GameObject> items = new List<GameObject>();
+    public Transform props;
 
     //获取标题名
     public GameObject duckRoom;
@@ -36,8 +35,10 @@ public class PlayerGyro : MonoBehaviour
 
     //是否分裂
     public bool isSnake = false;
-    public UnityEngine.UI.Image btnSP;
+    public Image btnSP;
     public List<Sprite> sp = new List<Sprite>();
+
+    public GameObject goodEnd, goodImag, badImag;
 
     private void Start()
     {
@@ -45,6 +46,26 @@ public class PlayerGyro : MonoBehaviour
         playerTF = transform.position;
     }
 
+    //重新开始
+    public void GameStart()
+    {
+        this.transform.position = new Vector3(-510, 386, 0);
+        foreach (Transform p in props)
+        {
+            p.gameObject.SetActive(true);
+        }
+
+        items.Clear();
+
+        foreach (Transform p in fishes)
+        {
+            Destroy(p);
+        }
+
+        goodEnd.GetComponent<BoxCollider2D>().isTrigger = false;
+        goodImag.SetActive(false);
+        badImag.SetActive(false);
+    }
 
     [System.Obsolete]
     private void FixedUpdate()
@@ -56,8 +77,8 @@ public class PlayerGyro : MonoBehaviour
             duckRoom.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, b);
 
             //镜头
-            float d = LinearInterpolation(transform.position.x, playerTF.x, duckRoom.transform.position.x, 150, 140);
-            CVCame.m_Lens.FieldOfView = d;
+            //float d = LinearInterpolation(transform.position.x, playerTF.x, duckRoom.transform.position.x, 150, 140);
+            //CVCame.m_Lens.FieldOfView = d;
         }
 
 
@@ -67,7 +88,6 @@ public class PlayerGyro : MonoBehaviour
 
         if (dirZ < 100) //上
         {
-            //rb.velocityY = dirZ + 80f;
             rb.velocityY = dirY + 50f;
         }
         else //下
@@ -78,23 +98,17 @@ public class PlayerGyro : MonoBehaviour
         if (dirX < -20) //左
         {
             rb.velocityX = dirX * 1.5f;
-            transform.DOScaleX(-1f, 0f);
 
-            transform.rotation = Quaternion.EulerRotation(0, 0, -Input.acceleration.y * 0.7f);
-            //body.transform.rotation = Quaternion.EulerRotation(0, 0, -Input.acceleration.y * 0.7f);
-            //head.transform.rotation = Quaternion.EulerRotation(0, 0, -Mathf.Clamp(Input.acceleration.y, -40f, 10f));
+            transform.DOScaleX(-1f, 0f);
+            transform.rotation = Quaternion.Euler(0, 0, Input.acceleration.z * 70 + 15);
         }
         else //右
         {
             rb.velocityX = dirX * 1.5f;
+
             transform.DOScaleX(1f, 0f);
-
-            transform.rotation = Quaternion.EulerRotation(0, 0, Input.acceleration.y * 0.7f);
-            //body.transform.rotation = Quaternion.EulerRotation(0, 0, Input.acceleration.y * 0.7f);
-            //head.transform.rotation = Quaternion.EulerRotation(0, 0, Mathf.Clamp(Input.acceleration.y, -40f, 10f));
-        }
-
-        
+            transform.rotation = Quaternion.Euler(0, 0, -Input.acceleration.z * 70 - 15);
+        }       
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -109,13 +123,46 @@ public class PlayerGyro : MonoBehaviour
             GameObject item = Instantiate(follow, randomPosition, Quaternion.Euler(0, 0, 0), fishes);
 
             items.Add(item);
+            item.GetComponent<NavFollowAi>().ball.material = item.GetComponent<NavFollowAi>().ballimage[items.Count]; //随从赋材质球
+
+            if(items.Count >15)//触发结局
+            {
+                goodEnd.GetComponent<BoxCollider2D>().isTrigger = true;
+            }
+            else
+            {
+                goodEnd.GetComponent<BoxCollider2D>().isTrigger = false;
+            }
         }
         
         if (collision.gameObject.name == "record") //reset重置点
         {
             playerTF = collision.gameObject.transform.position;
-            btnSP.enabled = true;
+
+            btnSP.enabled = true; 
         }
+
+        if (collision.gameObject.name == "good")
+        {
+            collision.gameObject.transform.GetChild(0).GetComponent<SpriteRenderer>().DOColor(new Color(1, 1, 1, 0), 1f);
+            Invoke("GoodEnd", 1.5f);
+            Invoke("GameStart", 3f);
+
+        }
+        if (collision.gameObject.name == "bad")
+        {
+            Invoke("BadEnd", 1.5f);
+            Invoke("GameStart", 3f);
+        }
+    }
+
+    public void BadEnd()
+    {
+        badImag.SetActive(true);
+    }
+    public void GoodEnd()
+    {
+        goodImag.SetActive(true);
     }
 
     private void OnTriggerExit2D(Collider2D collision)
@@ -125,6 +172,8 @@ public class PlayerGyro : MonoBehaviour
             transform.position = playerTF;
         }
     }
+
+
 
     public void isSnakeNow()
     {
