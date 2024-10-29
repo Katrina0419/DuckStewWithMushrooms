@@ -49,6 +49,8 @@ public class PlayerGyro : MonoBehaviour
     //重新开始
     public void GameStart()
     {
+        this.transform.localScale = Vector3.one;
+
         foreach (Transform p in fishes)
         {
             Destroy(p.gameObject);
@@ -68,6 +70,9 @@ public class PlayerGyro : MonoBehaviour
         badImag.SetActive(false);
 
         goodEnd.gameObject.transform.GetChild(0).GetComponent<SpriteRenderer>().color = Color.white;
+        duckRoom.GetComponent<SpriteRenderer>().color = Color.white;
+
+        playerTF = transform.position;
     }
 
     [System.Obsolete]
@@ -102,7 +107,7 @@ public class PlayerGyro : MonoBehaviour
         {
             rb.velocityX = dirX * 1.5f;
 
-            transform.DOScaleX(-1f, 0f);
+            transform.DOScaleX(-1, 0f);
             transform.rotation = Quaternion.EulerRotation(0, 0, -Input.acceleration.y);
             //transform.rotation = Quaternion.Euler(0, 0, Input.acceleration.z * 70 + 15);
         }
@@ -110,7 +115,7 @@ public class PlayerGyro : MonoBehaviour
         {
             rb.velocityX = dirX * 1.5f;
 
-            transform.DOScaleX(1f, 0f);
+            transform.DOScaleX(1, 0f);
             transform.rotation = Quaternion.EulerRotation(0, 0, Input.acceleration.y);
             //transform.rotation = Quaternion.Euler(0, 0, -Input.acceleration.z * 70 - 15);
         }       
@@ -138,6 +143,9 @@ public class PlayerGyro : MonoBehaviour
             {
                 goodEnd.GetComponent<BoxCollider2D>().isTrigger = false;
             }
+
+            //角色大一点
+            body.transform.DOScale(body.transform.localScale * 1.1f, 1f);
         }
         
         if (collision.gameObject.name == "record") //reset重置点
@@ -180,11 +188,14 @@ public class PlayerGyro : MonoBehaviour
     }
 
 
-
     public void isSnakeNow()
     {
-        if (isSnake) //分裂
+        var nowScale = body.transform.localScale; //储存当下大小
+
+        if (isSnake) //合并
         {
+            body.transform.DOScale(Vector3.one, 1f); //鸭子变大
+
             btnSP.sprite = sp[1];
 
             for (int i = 0; i < items.Count; i++)
@@ -201,6 +212,8 @@ public class PlayerGyro : MonoBehaviour
         }
         else //列队
         {
+            body.transform.DOScale(new Vector3(0.8f, 0.8f, 0.8f), 1f); //鸭子变小
+
             btnSP.sprite = sp[0];
 
             for (int i = 0; i < items.Count; i++)

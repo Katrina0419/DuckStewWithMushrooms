@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,12 +6,18 @@ using UnityEngine;
 //机关管理
 public class Organ : MonoBehaviour
 {
-    public Transform map;
+    public GameObject player;
 
-    public GameObject jiGuanCheng, jiGuangQiang;
-
-    private void Update()
+    private void Start()
     {
-        transform.localPosition = map.localPosition;
+        player
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if(collision.gameObject.name == "Player" && collision.gameObject.GetComponent<PlayerGyro>().isSnake == true)
+        {
+            this
+        }
     }
 }

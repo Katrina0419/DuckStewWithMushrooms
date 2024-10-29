@@ -6,7 +6,7 @@
 		},
 		{
 			"isGenerated" : true,
-			"path" : "E:/Work/DuckStewWithMushrooms/.utmp/RelWithDebInfo/bn635n6y/armeabi-v7a/CMakeFiles/3.22.1-g37088a8-dirty/CMakeSystem.cmake"
+			"path" : "E:/Work/DuckStewWithMushrooms/.utmp/RelWithDebInfo/bn635n6y/arm64-v8a/CMakeFiles/3.22.1-g37088a8-dirty/CMakeSystem.cmake"
 		},
 		{
 			"isExternal" : true,
@@ -36,11 +36,11 @@
 		},
 		{
 			"isGenerated" : true,
-			"path" : "E:/Work/DuckStewWithMushrooms/.utmp/RelWithDebInfo/bn635n6y/armeabi-v7a/CMakeFiles/3.22.1-g37088a8-dirty/CMakeCCompiler.cmake"
+			"path" : "E:/Work/DuckStewWithMushrooms/.utmp/RelWithDebInfo/bn635n6y/arm64-v8a/CMakeFiles/3.22.1-g37088a8-dirty/CMakeCCompiler.cmake"
 		},
 		{
 			"isGenerated" : true,
-			"path" : "E:/Work/DuckStewWithMushrooms/.utmp/RelWithDebInfo/bn635n6y/armeabi-v7a/CMakeFiles/3.22.1-g37088a8-dirty/CMakeCXXCompiler.cmake"
+			"path" : "E:/Work/DuckStewWithMushrooms/.utmp/RelWithDebInfo/bn635n6y/arm64-v8a/CMakeFiles/3.22.1-g37088a8-dirty/CMakeCXXCompiler.cmake"
 		},
 		{
 			"isCMake" : true,
@@ -183,28 +183,21 @@
 			"path" : "C:/Program Files/Unity/Hub/Editor/2023.2.20f1c1/Editor/Data/PlaybackEngines/AndroidPlayer/SDK/cmake/3.22.1/share/cmake-3.22/Modules/CMakeCommonLanguageInclude.cmake"
 		},
 		{
-			"path" : "GameActivity/CMakeLists.txt"
-		},
-		{
-			"isExternal" : true,
-			"path" : "E:/Work/DuckStewWithMushrooms/.utmp/RelWithDebInfo/bn635n6y/prefab/armeabi-v7a/prefab/lib/arm-linux-androideabi/cmake/game-activity/game-activityConfig.cmake"
-		},
-		{
 			"path" : "FramePacing/CMakeLists.txt"
 		},
 		{
 			"isExternal" : true,
-			"path" : "E:/Work/DuckStewWithMushrooms/.utmp/RelWithDebInfo/bn635n6y/prefab/armeabi-v7a/prefab/lib/arm-linux-androideabi/cmake/games-frame-pacing/games-frame-pacingConfigVersion.cmake"
+			"path" : "E:/Work/DuckStewWithMushrooms/.utmp/RelWithDebInfo/bn635n6y/prefab/arm64-v8a/prefab/lib/aarch64-linux-android/cmake/games-frame-pacing/games-frame-pacingConfigVersion.cmake"
 		},
 		{
 			"isExternal" : true,
-			"path" : "E:/Work/DuckStewWithMushrooms/.utmp/RelWithDebInfo/bn635n6y/prefab/armeabi-v7a/prefab/lib/arm-linux-androideabi/cmake/games-frame-pacing/games-frame-pacingConfig.cmake"
+			"path" : "E:/Work/DuckStewWithMushrooms/.utmp/RelWithDebInfo/bn635n6y/prefab/arm64-v8a/prefab/lib/aarch64-linux-android/cmake/games-frame-pacing/games-frame-pacingConfig.cmake"
 		}
 	],
 	"kind" : "cmakeFiles",
 	"paths" : 
 	{
-		"build" : "E:/Work/DuckStewWithMushrooms/.utmp/RelWithDebInfo/bn635n6y/armeabi-v7a",
+		"build" : "E:/Work/DuckStewWithMushrooms/.utmp/RelWithDebInfo/bn635n6y/arm64-v8a",
 		"source" : "E:/Work/DuckStewWithMushrooms/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/src/main/cpp"
 	},
 	"version" : 
