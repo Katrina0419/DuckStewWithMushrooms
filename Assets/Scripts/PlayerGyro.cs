@@ -96,7 +96,7 @@ public class PlayerGyro : MonoBehaviour
 
         if (dirZ < 100) //上
         {
-            rb.velocityY = dirY + 70f;
+            rb.velocityY = dirY + 60f;
         }
         else //下
         {
@@ -105,7 +105,7 @@ public class PlayerGyro : MonoBehaviour
 
         if (dirX < -20) //左
         {
-            rb.velocityX = dirX * 1.7f;
+            rb.velocityX = dirX * 2f;
 
             transform.DOScaleX(-1, 0f);
             transform.rotation = Quaternion.EulerRotation(0, 0, -Input.acceleration.y);
@@ -113,7 +113,7 @@ public class PlayerGyro : MonoBehaviour
         }
         else //右
         {
-            rb.velocityX = dirX * 1.7f;
+            rb.velocityX = dirX * 2f;
 
             transform.DOScaleX(1, 0f);
             transform.rotation = Quaternion.EulerRotation(0, 0, Input.acceleration.y);
@@ -159,13 +159,13 @@ public class PlayerGyro : MonoBehaviour
         {
             goodEnd.GetComponent<BoxCollider2D>().enabled = false;//碰撞体消失
             collision.gameObject.transform.GetChild(0).GetComponent<SpriteRenderer>().DOColor(new Color(1, 1, 1, 0), 1f);
-            Invoke("GoodEnd", 3f);
+            Invoke("GoodEnd", 2f);
             //Invoke("GameStart", 3f);
 
         }
         if (collision.gameObject.name == "bad")
         {
-            Invoke("BadEnd", 3f);
+            Invoke("BadEnd", 1f);
             //Invoke("GameStart", 3f);
         }
     }
