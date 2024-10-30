@@ -96,7 +96,7 @@ public class PlayerGyro : MonoBehaviour
 
         if (dirZ < 100) //上
         {
-            rb.velocityY = dirY + 50f;
+            rb.velocityY = dirY + 70f;
         }
         else //下
         {
@@ -105,7 +105,7 @@ public class PlayerGyro : MonoBehaviour
 
         if (dirX < -20) //左
         {
-            rb.velocityX = dirX * 1.5f;
+            rb.velocityX = dirX * 1.7f;
 
             transform.DOScaleX(-1, 0f);
             transform.rotation = Quaternion.EulerRotation(0, 0, -Input.acceleration.y);
@@ -113,7 +113,7 @@ public class PlayerGyro : MonoBehaviour
         }
         else //右
         {
-            rb.velocityX = dirX * 1.5f;
+            rb.velocityX = dirX * 1.7f;
 
             transform.DOScaleX(1, 0f);
             transform.rotation = Quaternion.EulerRotation(0, 0, Input.acceleration.y);
@@ -135,7 +135,7 @@ public class PlayerGyro : MonoBehaviour
             items.Add(item);
             item.GetComponent<NavFollowAi>().ball.material = item.GetComponent<NavFollowAi>().ballimage[items.Count]; //随从赋材质球
 
-            if(items.Count >15)//触发结局
+            if(items.Count >18)//触发结局
             {
                 goodEnd.GetComponent<BoxCollider2D>().isTrigger = true;
             }

@@ -10,14 +10,22 @@ public class Organ : MonoBehaviour
 
     private void Start()
     {
-        player
+
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if(collision.gameObject.name == "Player" && collision.gameObject.GetComponent<PlayerGyro>().isSnake == true)
         {
-            this
+            this.GetComponent<BoxCollider2D>().isTrigger = true;
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.name == "Player" && collision.gameObject.GetComponent<PlayerGyro>().isSnake == false)
+        {
+            this.GetComponent<BoxCollider2D>().isTrigger = false;
         }
     }
 }
